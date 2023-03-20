@@ -8,7 +8,7 @@ lampotilat = [
     {'x': 2, 'y': 10},
     {'x': 3, 'y': 22}
 ]
-paivat = ['Maanantai', 'Tiistai', 'Keskiviikko', 'Lauantai', 'Sunnuntai']
+paivat = ['Maanantai', 'Tiistai', 'Keskiviikko','Torstai', 'Perjantai', 'Lauantai', 'Sunnuntai']
 
 @app.route('/api', methods=['GET'])
 def index():
