@@ -20,6 +20,7 @@ def lisaa():
     lampotilat.append(uusimittaus)
     return(json.dumps(uusimittaus))
 
+#testi
 
 if __name__ == "__main__":
     app.run(debug=True)
