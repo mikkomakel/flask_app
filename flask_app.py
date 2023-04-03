@@ -27,6 +27,18 @@ def lisaa():
     lampotilat.append(uusimittaus)
     return(json.dumps(uusimittaus))
 
+@app.route('/lisaakantaan', methods=['POST'])
+def lisaa_tietokantaan():
+    uusimittaus = request.get_json(force=True)
+
+    con = sqlite3.connect("mittaukset.db3")
+    cur = con.cursor()
+    cur.execute("INSERT INTO mittaukset (paiva, mittaukset) VALUES (?,?)", [uusimittaus["x"], uusimittaus["y"]])
+    con.commit()
+    con.close()
+    return(json.dumps(uusimittaus))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
