@@ -30,14 +30,29 @@ def lisaa():
 @app.route('/lisaakantaan', methods=['POST'])
 def lisaa_tietokantaan():
     uusimittaus = request.get_json(force=True)
-
     con = sqlite3.connect("mittaukset.db3")
     cur = con.cursor()
-    cur.execute("INSERT INTO mittaukset (paiva, mittaukset) VALUES (?,?)", [uusimittaus["x"], uusimittaus["y"]])
+    cur.execute("INSERT INTO mittaukset (paiva, mittaus) VALUES (?,?)", [uusimittaus["x"], uusimittaus["y"]])
     con.commit()
     con.close()
     return(json.dumps(uusimittaus))
 
+@app.route('/api/haekannasta', methods=['GET'])
+def hae_tietokannasta():
+    con = sqlite3.connect("mittaukset.db3")
+    cur = con.cursor()
+    cur.execute('SELECT paiva, mittaus FROM mittaukset')
+    tiedot = cur.fetchall()
+    print(tiedot)
+    kantatiedot = []
+
+    for paiva in tiedot:
+        temp = dict(x=paiva[0], y=paiva[1])
+        kantatiedot.append(temp)
+        
+    con.commit()
+    con.close()
+    return render_template("mittaukset.html", taulukko=kantatiedot, paivat=paivat)
 
 
 if __name__ == "__main__":
